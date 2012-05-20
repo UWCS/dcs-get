@@ -20,6 +20,8 @@ instructions
 
 **uploader.php**: Script for handling uploads
 
+**munin**: Folder containing munin plugins for graphing dcs-get usage
+
 ## Todo list
 
 * probably better searching
