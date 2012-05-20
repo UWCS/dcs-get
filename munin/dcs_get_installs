@@ -1,35 +1,38 @@
 #!/usr/bin/env python
 
-# Munin plugin for graphing amount of package downloads.
+# Munin plugin for graphing amount of dcs-get installations
 #
 # 1. Link/copy this to /etc/munin/plugins
 # 2. Add the following to /etc/munin/plugin-conf.d/munin-node
 #
-# 	[dcs_get_installs]
-# 	user root
+#       [dcs_get_installs]
+#       user root
 
 import re
 import sys
 
 if len(sys.argv) == 2 and sys.argv[1] == "config":
-	print "graph_title dcs-get Package Downloads"
+	print "graph_title dcs-get Installations"
 	print "graph_args --base 1000"
-	print "graph_vlabel Downloads"
+	print "graph_vlabel installs"
 	print "graph_category dcs-get"
-	print "downloads.label Package Downloads"
-	print "downloads.type DERIVE"
-	print "downloads.min 0"
+	print "installs.label installs"
+	print "installs.type DERIVE"
+	print "installs.min 0"
 	exit(0)
 
-installation_count = 0
+# Count how many requests to dcs-get-install there are
 
-# Count how many package downloads there are.
-# We assume use of apache2 as a webserver, substitute the file below otherwise
+install_count = 0
+
+
+# We assume use of apache as a webserver.
+# Substitute the file below for an equivalent
 
 with open("/var/log/apache2/access.log") as log:
   	for log_line in log.readlines():
-		m = re.match(r".*/packages/(.*)-.*.tar.gz", log_line)
+		m = re.match(r".*/dcs-get-install.*", log_line)
 		if not m == None:
-			installation_count += 1
+				install_count += 1
 
-print "downloads.value %d" % installation_count
+print "installs.value %d" % install_count
