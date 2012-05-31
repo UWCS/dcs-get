@@ -199,9 +199,13 @@ switch ($input[1]) {
 	break;
 	case 'search':
 	case 's':
-		// Bit of a hack maybe should be nicer
-		echo shell_exec('dcs-get l | grep '.$input[2]);
-	break;
+		foreach($packages as $package => $data) {
+			$search_string = $package.' '.$data->description.' '.implode(' ', $data->version); 
+			if (preg_match('/'.$input[2].'/i', $search_string)) {
+				echo $search_string."\n";
+			}	
+		}
+		break;
 	case 'install':
 	case 'i':
 		array_shift($input);
