@@ -200,7 +200,7 @@ switch ($input[1]) {
 	case 'search':
 	case 's':
 		foreach($packages as $package => $data) {
-			$search_string = $package.' '.$data->description.' '.implode(' ', $data->version); 
+			$search_string = $package.' - '.$data->description.' - Versions: '.implode(', ', $data->version); 
 			if (preg_match('/'.$input[2].'/i', $search_string)) {
 				echo $search_string."\n";
 			}	
