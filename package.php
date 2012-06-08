@@ -19,6 +19,10 @@ $packages = json_decode(file_get_contents(BASE_URL.'packages.json'), true);
 ksort($packages);
 
 foreach($packages as $package => $data) {
+	// Don't list games
+	if ($data['type'] == 'game') {
+		continue;
+	}
 	echo '<ul><li>';
 	echo htmlspecialchars($package).' - ';
 	if (isset($data['description'])) {
