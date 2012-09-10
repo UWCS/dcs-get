@@ -62,7 +62,7 @@ function custom_sort($a,$b){return $a['total']<$b['total'];}
 //commented out because php doesn't support pretty print until version 5.4
 //file_put_contents($result_file, json_encode($result, JSON_PRETTY_PRINT));
 file_put_contents($result_file, indent(json_encode($result)));
-chmod($result_file, 'a+r');
+chmod($result_file, 0644);
 
 
 function indent($json) {
