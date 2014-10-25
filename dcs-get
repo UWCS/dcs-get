@@ -48,9 +48,9 @@ function is_installed($package, $version) {
 	return is_dir(INSTALL_DIR.'/'.$package.'-'.$version);
 }
 
-function install_package($package, $version) {
+function install_package($package, $version, $forcereinstall = false) {
 	global $packages;
-	if (is_installed($package, $version)) {
+	if (is_installed($package, $version) && !$forcereinstall) {
 		echo 'Already installed '.$package.'-'.$version."\n";
 		return true;
 	}
@@ -62,9 +62,9 @@ function install_package($package, $version) {
 
 	if (isset($packages->$package->dependencies)) {
 		foreach ($packages->$package->dependencies as $dependency) {
-			if (!is_installed($dependency[0], $dependency[1])) {
+			if (!is_installed($dependency[0], $dependency[1]) || $forcereinstall) {
 				// TODO: return false = sad
-				install_package($dependency[0], $dependency[1]);
+				install_package($dependency[0], $dependency[1], $forcereinstall);
 			}
 		}
 	}
@@ -195,7 +195,7 @@ if (!isset($input[1])) {
 
 switch ($input[1]) {
 	case 'commands':
-		echo "commands search install reinstall list list-dev clean gensymlinks package help upload update";
+		echo "commands search install reinstall deep-reinstall list list-dev clean gensymlinks package help upload update";
 	break;
 	case 'search':
 	case 's':
@@ -235,22 +235,44 @@ switch ($input[1]) {
                         if ($package == '%') {
                                 foreach ($packages as $package => $data) {
 					shell_exec('rm -rf '.INSTALL_DIR.'/'.$package.'-'.$packages->$package->version[0]);
-                                        install_package($package, $packages->$package->version[0], true);
+                                        install_package($package, $packages->$package->version[0]);
                                 }
                         } else if (isset($packages->$package)) {
 				shell_exec('rm -rf '.INSTALL_DIR.'/'.$package.'-'.$packages->$package->version[0]);
-                                install_package($package, $packages->$package->version[0], true);
+                                install_package($package, $packages->$package->version[0]);
                         } else {
                                 $pack_name = substr($package,0,strrpos($package,'-'));
                                 if (isset($packages->$pack_name)) {
 					shell_exec('rm -rf '.INSTALL_DIR.'/'.$package);
-                                        install_package(substr($package,0,strrpos($package,'-')), substr($package,strrpos($package,'-')+1), true);
+                                        install_package(substr($package,0,strrpos($package,'-')), substr($package,strrpos($package,'-')+1));
                                 } else {
                                         echo 'No such package '.$package."\n";
                                 }
                         }
                 }
                 break;
+	case 'deep-reinstall':
+	case 'dr':
+		// Use at your own risk, will just reinstall dependencies multiple times
+		array_shift($input);
+		array_shift($input);
+		foreach ($input as $package) {
+			if ($package == '%') {
+				foreach ($packages as $package => $data) {
+					install_package($package, $packages->$package->version[0], true);
+				}
+			} else if (isset($packages->$package)) {
+				install_package($package, $packages->$package->version[0], true);
+			} else {
+				$pack_name = substr($package,0,strrpos($package,'-'));
+				if (isset($packages->$pack_name)) {
+					install_package(substr($package,0,strrpos($package,'-')), substr($package,strrpos($package,'-')+1), true);
+				} else {
+					echo 'No such package '.$package."\n";
+				}
+			}
+		}
+		break;
 	case 'list':
 	case 'l':
 		$tmp_pkgs = array();
