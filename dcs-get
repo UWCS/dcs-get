@@ -334,7 +334,7 @@ switch ($input[1]) {
 		break;
 	case 'clean':
 	case 'c':
-		`rm -rf /var/tmp/dcs-get`;
+		`/var/tmp/dcs-get/cleanup`;
 		break;
 	case 'gensymlinks':
 	case 'g':
