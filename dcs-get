@@ -316,7 +316,7 @@ switch ($input[1]) {
 	case 'list-installed':
 	case 'li':
 		$tmp_pkgs = array();
-		$ignore = array('.', '..', 'bin', 'cleanup', 'downloads', 'downloaded', 'lib', 'home');
+		$ignore = array('.', '..', 'bin', 'cleanup', 'downloads', 'downloaded', 'lib', 'home', 'include', 'lib64');
 		$dh = opendir(INSTALL_DIR.'/');
 		while($package = readdir($dh))
 		{
