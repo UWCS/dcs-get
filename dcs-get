@@ -418,7 +418,7 @@ switch ($input[1]) {
 		break;
 	case 'upload':
 	case 'u':
-		// Rodger has requested we EOL the use of /var/tmp/dcs-get for packages, requesting
+		// Roger has requested we EOL the use of /var/tmp/dcs-get for packages, requesting
 		// we use the /dcs/guest/compsoc NFS instead. Because of this, all packages will need
 		// re-building. No more packages will be accepted for dcs-get for the mean time.
 		
