@@ -439,7 +439,7 @@ switch ($input[1]) {
 		// 	echo $input[2].' does not exist.'."\n";
 		// }
 		
-		echo 'dcs-get is no longer accepting uploads.\n';
+		echo 'dcs-get is no longer accepting uploads.'."\n";
 		break;
 	case 'update':
 		shell_exec('wget -q http://backus.uwcs.co.uk/dcs-get/packages.json -O packages.json');
