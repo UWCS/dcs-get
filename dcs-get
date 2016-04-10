@@ -418,22 +418,28 @@ switch ($input[1]) {
 		break;
 	case 'upload':
 	case 'u':
-		if (file_exists(INSTALL_DIR.'/downloaded/'.$input[2].'.tar.gz')) {
-			$file = '@'.INSTALL_DIR.'/downloaded/'.$input[2].'.tar.gz';
-			$fields = array('upload'=>'true', 'foo'=>$file);
-			echo 'Uploading: '.$file."\n"; 
+		// Rodger has requested we EOL the use of /var/tmp/dcs-get for packages, requesting
+		// we use the /dcs/guest/compsoc NFS instead. Because of this, all packages will need
+		// re-building. No more packages will be accepted for dcs-get for the mean time.
+		
+		// if (file_exists(INSTALL_DIR.'/downloaded/'.$input[2].'.tar.gz')) {
+		// 	$file = '@'.INSTALL_DIR.'/downloaded/'.$input[2].'.tar.gz';
+		// 	$fields = array('upload'=>'true', 'foo'=>$file);
+		// 	echo 'Uploading: '.$file."\n"; 
 			
-			$ch = curl_init(BASE_URL.'uploader.php');
-			curl_setopt($ch, CURLOPT_POST, true);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: MultiPart/Form-Data'));
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $fields); 
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			$postResult = curl_exec($ch); 
-			curl_close($ch);
-			echo $postResult; 
-		} else {
-			echo $input[2].' does not exist.'."\n";
-		}
+		// 	$ch = curl_init(BASE_URL.'uploader.php');
+		// 	curl_setopt($ch, CURLOPT_POST, true);
+		// 	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: MultiPart/Form-Data'));
+		// 	curl_setopt($ch, CURLOPT_POSTFIELDS, $fields); 
+		// 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		// 	$postResult = curl_exec($ch); 
+		// 	curl_close($ch);
+		// 	echo $postResult; 
+		// } else {
+		// 	echo $input[2].' does not exist.'."\n";
+		// }
+		
+		echo 'dcs-get is no longer accepting uploads.\n';
 		break;
 	case 'update':
 		shell_exec('wget -q http://backus.uwcs.co.uk/dcs-get/packages.json -O packages.json');
