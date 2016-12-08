@@ -9,11 +9,11 @@ then
         then
                 cd /var/tmp
 		INSTALL=$(mktemp -p /var/tmp/ dcs-get-install.XXXXXXXXXX) || { echo "Failed to install dcs-get"; exit 1; }
-		wget -O $INSTALL -q -T 1 -t 2 http://backus.uwcs.co.uk/dcs-get/dcs-get-install
+		wget -O $INSTALL -q -T 1 -t 2 http://godel.uwcs.co.uk/dcs-get/dcs-get-install
                 if [ $? -eq 0 ]
 		then
                 	chmod u+x $INSTALL
-			$INSTALL "1.3"
+			$INSTALL "1.5"
 			if [ $? -ne 0 ]
 			then
 				rm $INSTALL
@@ -22,7 +22,7 @@ then
 			fi
 			rm $INSTALL
 		else
-			echo "Backus is down, dcs-get is currently unavailiable."
+			echo "Godel is down, dcs-get is currently unavailiable."
 		fi
 		cd
         fi
