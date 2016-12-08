@@ -9,10 +9,10 @@
 if ("compsoc" !== posix_getpwuid(posix_geteuid())['name']) {
 	// Support ends on the 30th December 2016
 	if (time() >= 1483056000) {
-		print "dcs-get is no longer supported for non-compsoc users";
+		print "dcs-get is no longer supported for non-compsoc users\n";
 		exit(1);
 	} else {
-		print "dcs-get support for non-compsoc users ends on 2016-12-30";
+		print "dcs-get support for non-compsoc users ends on 2016-12-30\n";
 	}
 }
 
