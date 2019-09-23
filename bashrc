@@ -9,7 +9,7 @@ then
         then
                 cd /var/tmp
 		INSTALL=$(mktemp -p /var/tmp/ dcs-get-install.XXXXXXXXXX) || { echo "Failed to install dcs-get"; exit 1; }
-		wget -O $INSTALL -q -T 1 -t 2 http://godel.uwcs.co.uk/dcs-get/dcs-get-install
+		wget -O $INSTALL -q -T 1 -t 2 http://milner.uwcs.co.uk/dcs-get/dcs-get-install
                 if [ $? -eq 0 ]
 		then
                 	chmod u+x $INSTALL

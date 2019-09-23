@@ -13,7 +13,7 @@
 error_reporting(0);
 //error_reporting(E_ALL);
 
-define('BASE_URL', 'http://backus.uwcs.co.uk/dcs-get/');
+define('BASE_URL', 'http://milner.uwcs.co.uk/dcs-get/');
 
 $packages = json_decode(file_get_contents(BASE_URL.'packages.json'), true);
 ksort($packages);
