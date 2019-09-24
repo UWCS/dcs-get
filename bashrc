@@ -22,7 +22,7 @@ then
 			fi
 			rm $INSTALL
 		else
-			echo "Godel is down, dcs-get is currently unavailiable."
+			echo "Milner is down, dcs-get is currently unavailiable."
 		fi
 		cd
         fi
