@@ -13,7 +13,7 @@ then
                 if [ $? -eq 0 ]
 		then
                 	chmod u+x $INSTALL
-			$INSTALL "1.5"
+			$INSTALL "1.6"
 			if [ $? -ne 0 ]
 			then
 				rm $INSTALL
